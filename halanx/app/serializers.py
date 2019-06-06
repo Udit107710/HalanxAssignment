@@ -8,8 +8,8 @@ class RegisterUserSerializer(serializers.Serializer):
     email = serializers.EmailField()
     phone_no = serializers.IntegerField(max_value=9999999999, min_value= 111111111)
     password = serializers.CharField(style={'input_type': 'password'})
-    gender = serializers.CharField(allow_null= True)
-    date_of_birth = serializers.DateField(allow_null=True)
+    gender = serializers.ChoiceField(allow_null= True, required=False, choices= ['M', 'F', 'O'])
+    date_of_birth = serializers.DateField(allow_null=True, required=False)
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -30,13 +30,3 @@ class ProfileSerializer(serializers.ModelSerializer):
         validated_data.pop('name')
         validated_data.pop('email')
         validated_data.pop('password')
-        
-    #def create(self, validated_data):
-    #    user = User.objects.create_user(validated_data['name'], validated_data['email'], validated_data['password'])
-    #    user.save()
-    #    validated_data.pop('name')
-    #    validated_data.pop('email')
-    #    validated_data.pop('password')
-    #    profile = Profile(validated_data.values())
-    #    profile.save()
-
