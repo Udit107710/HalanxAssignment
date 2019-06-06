@@ -4,6 +4,6 @@ from .models import Profile, Address
 class ProfileAdmin(admin.ModelAdmin):
     #image_display = AdminThumbnail(image_field='profile_pic')
     list_display = ('image_tag', 'user')
-    list_filter = ('gender', )
+    list_filter = ('gender','permanent_address' )
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Address)

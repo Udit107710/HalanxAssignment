@@ -11,6 +11,11 @@ class RegisterUserSerializer(serializers.Serializer):
     gender = serializers.ChoiceField(allow_null= True, required=False, choices= ['M', 'F', 'O'])
     date_of_birth = serializers.DateField(allow_null=True, required=False)
 
+class LoginDetailSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+
+'''
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -30,3 +35,4 @@ class ProfileSerializer(serializers.ModelSerializer):
         validated_data.pop('name')
         validated_data.pop('email')
         validated_data.pop('password')
+'''
