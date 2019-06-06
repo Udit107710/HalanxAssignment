@@ -13,19 +13,24 @@ class Address(models.Model):
     pincode = models.IntegerField()
     country = models.CharField(max_length= 30)
 
+    def __str__(self):
+        return self.city
+
 class Profile(models.Model):
     GENDER_CHOICES = [ ('M', 'Male'), ('F', 'Female'), ('O', 'Other')]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='custom_user_profile')
-    phone_no = models.BigIntegerField(unique=True, validators=[MaxValueValidator(9999999999),MinValueValidator(0000000000)])
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    profile_pic = models.ImageField(upload_to= user_directory_path)
-    date_of_birth = models.DateField()
-    permanent_address = models.OneToOneField(Address, on_delete= models.CASCADE, related_name='permanent_address_is')
-    street_address = models.OneToOneField(Address, on_delete= models.CASCADE, related_name= 'street_address_is')
-    company_address = models.OneToOneField(Address, on_delete= models.CASCADE, related_name= 'company_address_is')
-    friends = models.ManyToManyField(User, related_name= 'friends_are')
+    phone_no = models.BigIntegerField(unique=True, validators=[MaxValueValidator(9999999999),MinValueValidator(1000000000)])
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=True, blank=True)
+    profile_pic = models.ImageField(upload_to= user_directory_path,null=True, blank=True)
+    date_of_birth = models.DateField(null=True, blank=True)
+    permanent_address = models.OneToOneField(Address, on_delete= models.CASCADE, related_name='permanent_address_is', null=True, blank=True)
+    street_address = models.OneToOneField(Address, on_delete= models.CASCADE, related_name= 'street_address_is', null=True, blank=True)
+    company_address = models.OneToOneField(Address, on_delete= models.CASCADE, related_name= 'company_address_is',null=True, blank=True)
+    friends = models.ManyToManyField(User, related_name= 'friends_are', null=True, blank=True)
 
     def image_tag(self):
-        return mark_safe('<img src="{0}" width="{1}" height="{2}">'.format(self.profile_pic.url, 150, 150))
-
+        if self.profile_pic:
+            return mark_safe('<img src="{0}" width="{1}" height="{2}" >'.format(self.profile_pic.url, 150, 150))
+        else:
+            return mark_safe('<img src="" width="150" height="150" alt="Picture not uplaoded">')
