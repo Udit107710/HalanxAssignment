@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxLengthValidator, MinLengthValidator, MaxValueValidator, MinValueValidator, MaxValueValidator
 from django.utils.safestring import mark_safe
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 def user_directory_path(instance, filename):
     return 'user_{0}/{1}'.format(instance.user.id, filename)
@@ -34,3 +36,12 @@ class Profile(models.Model):
             return mark_safe('<img src="{0}" width="{1}" height="{2}" >'.format(self.profile_pic.url, 150, 150))
         else:
             return mark_safe('<img src="" width="150" height="150" alt="Picture not uplaoded">')
+
+#@receiver(post_save, sender=User)
+#def create_user_profile(sender, instance, created, **kwargs):
+#    if created:
+#        Profile.objects.create(user=instance)
+
+#@receiver(post_save, sender=User)
+#def save_user_profile(sender, instance, **kwargs):
+#    instance.profile.save()

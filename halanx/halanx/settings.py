@@ -125,3 +125,13 @@ STATIC_URL = '/static/'
 # Media settings
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+# Rest Framework Settings
+
+REST_FRAMEWORK = {
+        'DEFAULT_AUTHENTICATION_CLASSES':(
+            'rest_framework.authentication.BasicAuthentication',
+            'rest_framework.authentication.TokenAuthentication',
+            'rest_framework.authentication.SessionAuthentication',
+            )
+        }
