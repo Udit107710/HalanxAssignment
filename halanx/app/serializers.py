@@ -77,7 +77,6 @@ class UpdateUserSerializer(ProfileSerializer):
     user = UserSerializer(required=True, allow_null=True)
 
     def update(self, instance, validated_data):
-        print(validated_data)
         if validated_data['user'] is not None:
             user = User.objects.get(username= validated_data['user']['username'])
             user.email = validated_data['user']['email']
@@ -136,3 +135,15 @@ class UpdateUserSerializer(ProfileSerializer):
         instance.save()
         return instance
 
+class FilterSerializer(serializers.Serializer):
+    gender = serializers.ChoiceField(choices=['M', 'F', 'O'], allow_null=True, required=False)
+    permanent_address_city= serializers.CharField(allow_null=True, required=False)
+
+class AllProfilesSerializer(serializers.Serializer):
+    user_id = serializers.IntegerField()
+    name = serializers.CharField()
+    gender= serializers.CharField(allow_null=True)
+    profile_pic_url= serializers.URLField( allow_null=True, allow_blank=True)
+    permanent_address_city= serializers.CharField(allow_null= True)
+    is_person_my_friend= serializers.CharField()
+    count_of_mutual_friends= serializers.IntegerField(allow_null= True)
