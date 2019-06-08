@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
-from rest_framework.authentication import SessionAuthentication
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication, BasicAuthentication
 
 from .models import Profile, Address
 from .serializers import UpdateUserSerializer, RegisterUserSerializer, ProfileSerializer, LoginDetailSerializer, AddressSerializer, AllProfilesSerializer, FilterSerializer
@@ -25,7 +25,7 @@ class RegisterUserView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class LoginView(APIView):
-    authentication_classes = []
+    #authentication_classes = []
     def post(self, request):
         serializer = LoginDetailSerializer(data=request.data)
         if serializer.is_valid():
@@ -95,7 +95,7 @@ class FetchProfileView(APIView):
         return Response("Authentication Required!", status=status.HTTP_403_FORBIDDEN)
 
     def append_profiles(self,user_profile, profile, list_of_profiles, request):
-        print(profile.profile_pic)
+        #print(profile.profile_pic)
         if user_profile.friends is not None:
             if profile.user_id in user_profile.friends.all():
                 is_person_my_friend= 'Yes'

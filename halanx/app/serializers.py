@@ -55,8 +55,8 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         return user
 
 class UpdateFriendSerializer(serializers.Serializer):
-    username= serializers.CharField()
-    email= serializers.EmailField()
+    username= serializers.CharField(required=True)
+    email= serializers.EmailField(required=False)
 
 class UpdateFriendsSerializer(serializers.Serializer):
     add = UpdateFriendSerializer(many=True, allow_null=True)
@@ -86,13 +86,9 @@ class UpdateUserSerializer(ProfileSerializer):
         if validated_data['friends']['add'] is not None:
             for users in validated_data['friends']['add']:
                 instance.friends.add(User.objects.get(username=users['username']))
-        else:
-            instance.freinds = None
         if validated_data['friends']['remove'] is not None:
             for users in validated_data['friends']['remove']:
                 instance.friends.remove(User.objects.get(username=users['username']))
-        else:
-            instance.friends = None
 
         permanent_address= validated_data['permanent_address']
         company_address= validated_data['company_address']
