@@ -25,7 +25,7 @@ SECRET_KEY = '1$)0fv038n7ga^=k&snj94qma#gly-0hhfy&no7seg)!jiwyk7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'django-mango-halanx.herokuapp.com']
 
 
 # Application definition

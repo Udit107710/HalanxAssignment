@@ -25,7 +25,7 @@ def _deactivate(args):
 _deactivate(["nondestructive"])
 aliases["deactivate"] = _deactivate
 
-$VIRTUAL_ENV = r"/root/Halanx"
+$VIRTUAL_ENV = r"/root/HalanxAssignment"
 
 $_OLD_VIRTUAL_PATH = $PATH
 $PATH = $PATH[:]

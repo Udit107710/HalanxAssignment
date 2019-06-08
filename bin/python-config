@@ -1,4 +1,4 @@
-#!/root/Halanx/bin/python
+#!/root/HalanxAssignment/bin/python
 
 import sys
 import getopt
